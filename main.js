@@ -13,8 +13,8 @@ function setup() {
   //   CONNECT FX
   song.connect(filter);
 
-  //   JUMP TO 55s INTO THE SONG
-  song.jump(55);
+  //   JUMP TO 2s INTO THE SONG
+  song.jump(2);
 }
 
 function draw() {
@@ -25,7 +25,7 @@ function draw() {
   ellipse(mouseX, mouseY, 10);
 
   //   FREQ (WHICH FREQ IS HIGH)
-  let mappedfreq = map(mouseX, 0, windowWidth, 0, 10000);
+  let mappedfreq = map(mouseX, 10, windowWidth, 0, 10000);
   filter.freq(Math.floor(mappedfreq));
 
   //   RESOLUTION (FOCUS)
