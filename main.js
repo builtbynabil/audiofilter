@@ -1,3 +1,5 @@
+var focusFx,freq;
+
 function preload() {
   song = loadSound("song.mp3");
 }
@@ -22,15 +24,13 @@ function draw() {
 
   //   MOUSE CURSOR
   fill(255);
-  ellipse(mouseX, mouseY, 10);
+  ellipse(freq, focusFx, 10);
 
   //   FREQ (WHICH FREQ IS HIGH)
-  let mappedfreq = map(mouseX, 0, windowWidth, 0, 10000);
-  filter.freq(Math.floor(mappedfreq));
+  filter.freq(freq);
 
   //   RESOLUTION (FOCUS)
-  mappedRes = map(mouseY, 10, windowHeight, 0, 4);
-  console.log(filter.res(Math.floor(mappedRes)));
+  filter.res(focusFx)
 
   var centerX = windowWidth / 2;
   var centerY = windowHeight / 2;
@@ -48,9 +48,9 @@ function draw() {
   fill(255);
   text("Left to Right = Freq Focus", 0, 10);
   text("Up to Down = Freq Bandwith", 0, 25);
-  text("Frequency Bandwidth (How Wide): " + Math.floor(mappedRes), 0, 40);
+  text("Frequency Bandwidth (How Wide): " + freq, 0, 40);
   text(
-    "Frequency Focus (Which frequencies are high): " + Math.floor(mappedfreq),
+    "Frequency Focus (Which frequencies are high): " + focusFx,
     0,
     55
   );
@@ -58,4 +58,16 @@ function draw() {
   song.onended(function() {
     song.jump(55);
   });
+
+  console.log(freq);
+  
+  
 }
+
+window.addEventListener('deviceorientation', function (e) {
+  // focusFx x
+  focusFx = map(e.beta , 0 , 50 , 0 , 3);
+  
+  // freq y
+  freq = map(e.gamma, 0, 50, 20, 10000);
+});
